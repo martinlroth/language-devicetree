@@ -1,0 +1,14 @@
+{
+  "name": "language-devicetree",
+  "version": "0.1.0",
+  "description": "coreboot devicetree.cb language support for Atom",
+  "keywords": [
+    "language",
+    "grammar"
+  ],
+  "repository": "https://github.com/martinlroth/language-devicetree",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=0.174.0 <2.0.0"
+  }
+}

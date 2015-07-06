@@ -1,0 +1,135 @@
+'scopeName': 'source.devicetree'
+'name': 'devicetree'
+'fileTypes': [
+  'devicetree.cb'
+]
+
+'patterns': [
+  { 'include': '#comment' }
+  { 'include': '#keyword_chip' }
+]
+
+'repository':
+  'comment':
+    'begin': '(^[ \\t]+)?(?=#)'
+    'beginCaptures':
+      '1': 'name': 'punctuation.whitespace.comment.leading.devicetree'
+    'end': '(?!\\G)'
+    'patterns': [
+      {
+        'begin': '#'
+        'beginCaptures':
+          '0': 'name': 'punctuation.definition.comment.devicetree'
+        'end': '$'
+        'name': 'comment.line.number-sign.devicetree'
+      }
+    ]
+
+  'keyword_chip':
+    'patterns': [
+      {
+        'begin': '^[ \\t]*(chip)[ \\t]+([A-Za-z0-9\/_-]+)'
+        'beginCaptures': {
+          '1': 'name': 'keyword.other.devicetree'
+          '2': 'name': 'string.unquoted.devicetree'
+        }
+        'patterns': [
+          { 'include': '#comment' }
+          { 'include': '#keyword_chip' }
+          { 'include': '#keyword_device' }
+          { 'include': '#keyword_register' }
+          { 'include': '#quoted_string' }
+
+        ]
+        'end': '[ \\t]*(end)'
+        'endCaptures': {
+          '1': 'name': 'keyword.other.devicetree'
+        }
+
+      }
+    ]
+
+  'keyword_device':
+    'patterns': [
+      {
+        'begin': '^[ \\t]*(device)'
+        'beginCaptures': {
+          '1': 'name': 'keyword.other.devicetree'
+        }
+        'patterns': [
+          { 'include': '#comment' }
+          { 'include': '#keyword_chip' }
+          { 'include': '#keyword_device' }
+          { 'include': '#keyword_devicetypes' }
+          { 'include': '#keyword_subsystemid' }
+          { 'include': '#keyword_pnpreg' }
+        ]
+        'end': '[ \\t]*(end)'
+        'endCaptures': {
+          '1': 'name': 'keyword.other.devicetree'
+        }
+
+      }
+    ]
+
+  'keyword_devicetypes':
+    'patterns': [
+      {
+        'match': '(cpu|cpu_cluster|domain|i2c|ioapic|lapic|pci|pnp)[ \\t]+([A-Fa-f0-9\.]+)[ \\t]+(on|off)';
+        'captures': {
+          '1': 'name': 'keyword.other.devicetree'
+          '2': 'name': 'constant.numeric.devicetree'
+          '3': 'name': 'support.type.devicetree'
+        }
+      }
+    ]
+
+  'keyword_subsystemid':
+    'patterns': [
+      {
+        'match': '(subsystemid)[ \\t]+([A-Fa-f0-9x]+)[ \\t]+([A-Fa-f0-9x]+)[ \\t]*(inherit)*';
+        'captures': {
+          '1': 'name': 'keyword.other.devicetree'
+          '2': 'name': 'constant.numeric.devicetree'
+          '3': 'name': 'constant.numeric.devicetree'
+          '4': 'name': 'keyword.control.devicetree'
+        }
+      }
+    ]
+
+  'keyword_pnpreg':
+    'patterns': [
+      {
+        'match': '(io|irq|drq|ioapic_irq)[ \\t]+([A-Fa-f0-9x]+)[ \\t]+(=)[ \\t]+([A-Fa-f0-9x]+)'
+        'captures': {
+          '1': 'name': 'keyword.other.devicetree'
+          '2': 'name': 'constant.numeric.devicetree'
+          '3': 'name': 'keyword.operator.devicetree'
+          '4': 'name': 'constant.numeric.devicetree'
+        }
+      }
+    ]
+
+  'keyword_register':
+    'patterns': [
+      {
+        'match': '(register)[ \\t]+("[^"]+")[ \\t]+(=)'
+        'captures': {
+          '1': 'name': 'keyword.other.devicetree'
+          '2': 'name': 'constant.numeric.devicetree'
+          '3': 'name': 'keyword.operator.devicetree'
+        }
+        'patterns': [
+          { 'include': '#quoted_string' }
+        ]
+      }
+    ]
+
+  'quoted_string':
+    'patterns': [
+      {
+        'begin': '"'
+        'end': '"'
+        'name': 'constant.numeric.devicetree'
+      }
+    ]
