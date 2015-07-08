@@ -39,13 +39,11 @@
           { 'include': '#keyword_device' }
           { 'include': '#keyword_register' }
           { 'include': '#quoted_string' }
-
         ]
         'end': '[ \\t]*(end)'
         'endCaptures': {
           '1': 'name': 'keyword.other.devicetree'
         }
-
       }
     ]
 
@@ -63,6 +61,7 @@
           { 'include': '#keyword_devicetypes' }
           { 'include': '#keyword_subsystemid' }
           { 'include': '#keyword_pnpreg' }
+          { 'include': '#keyword_ioapic_irq' }
         ]
         'end': '[ \\t]*(end)'
         'endCaptures': {
@@ -75,7 +74,7 @@
   'keyword_devicetypes':
     'patterns': [
       {
-        'match': '(cpu|cpu_cluster|domain|i2c|ioapic|lapic|pci|pnp)[ \\t]+([A-Fa-f0-9\.]+)[ \\t]+(on|off)';
+        'match': '(cpu|cpu_cluster|domain|i2c|ioapic|lapic|pci|pnp)[ \\t]+([A-Fa-f0-9\.x]+)[ \\t]+(on|off)';
         'captures': {
           '1': 'name': 'keyword.other.devicetree'
           '2': 'name': 'constant.numeric.devicetree'
@@ -100,7 +99,7 @@
   'keyword_pnpreg':
     'patterns': [
       {
-        'match': '(io|irq|drq|ioapic_irq)[ \\t]+([A-Fa-f0-9x]+)[ \\t]+(=)[ \\t]+([A-Fa-f0-9x]+)'
+        'match': '(io|irq|drq)[ \\t]+([A-Fa-f0-9x]+)[ \\t]+(=)[ \\t]+([A-Fa-f0-9x]+)'
         'captures': {
           '1': 'name': 'keyword.other.devicetree'
           '2': 'name': 'constant.numeric.devicetree'
@@ -122,6 +121,17 @@
         'patterns': [
           { 'include': '#quoted_string' }
         ]
+      }
+    ]
+
+  'keyword_ioapic_irq':
+    'patterns': [
+      'match': '^[ \\t]*(ioapic_irq)[ \\t]+([A-Fa-f0-9x]+)[ \\t]+(INT[ABCD])[ \\t]+([A-Fa-f0-9x]+)'
+      'captures': {
+        '1': 'name': 'keyword.other.devicetree'
+        '2': 'name': 'constant.numeric.devicetree'
+        '3': 'name': 'support.constant.devicetree'
+        '4': 'name': 'constant.numeric.devicetree'
       }
     ]
 
